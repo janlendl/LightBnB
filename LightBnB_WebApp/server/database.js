@@ -168,11 +168,11 @@ const getAllProperties = function(options, limit = 10) {
     allPropertiesQuery += `(properties.cost_per_night > $${queryParams.length - 1} AND properties.cost_per_night < $${queryParams.length})`;
   }
 
-  allPropertiesQuery += `GROUP BY properties.id`;
+  allPropertiesQuery += `\nGROUP BY properties.id`;
 
   if (options.minimum_rating) {
     queryParams.push(`${options.minimum_rating}`);
-    allPropertiesQuery += `HAVING avg(property_reviews_rating) >= $${queryParams.length}`;
+    allPropertiesQuery += `\nHAVING avg(property_reviews.rating) >= $${queryParams.length}`;
   }
 
   queryParams.push(limit);
