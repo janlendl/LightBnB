@@ -99,7 +99,27 @@ exports.addUser = addUser;
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function(guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+  const getReservationsQuery = `
+    SELECT properties.*, reservations.* 
+    FROM properties 
+    JOIN reservations ON properties.id = property_id
+    WHERE reservations.guest_id = $1
+    GROUP BY reservations.id, properties.id
+    ORDER BY reservations.start_date
+    LIMIT $2`;
+  
+  return pool
+    .query (getReservationsQuery, [guest_id], [limit])
+    .then ((res) => {
+      if (res.rows.length === 0) {
+        return null;
+      }
+      return res.rows[0];
+    })
+    .catch((err) => {
+      console.log('Error: ', err.message);
+    });
+  // return getAllProperties(null, 2);
 }
 exports.getAllReservations = getAllReservations;
 
@@ -114,12 +134,12 @@ exports.getAllReservations = getAllReservations;
 const getAllProperties = function(options, limit = 10) {
   const allPropertiesQuery = `SELECT * FROM properties LIMIT $1;`
   return pool
-    .query(allPropertiesQuery, [limit])
-    .then((res) => {
+    .query (allPropertiesQuery, [limit])
+    .then ((res) => {
       console.log(res.rows);
       return res.rows;
     })
-    .catch((err) => {
+    .catch ((err) => {
     console.log(err.message);
     });
 };
