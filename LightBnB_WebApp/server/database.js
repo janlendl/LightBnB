@@ -136,7 +136,7 @@ const getAllProperties = function(options, limit = 10) {
   let allPropertiesQuery = `
     SELECT properties.*, avg(property_reviews.rating) as average_rating
     FROM properties
-    JOIN property_review ON properties.id = property_id`;
+    JOIN property_reviews ON properties.id = property_id `;
 
   if (options.city || options.owner_id || options.minimum_price_per_night && options.maximum_price_per_night) {
     allPropertiesQuery += `WHERE `;
@@ -144,7 +144,7 @@ const getAllProperties = function(options, limit = 10) {
 
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    allPropertiesQuery += ` properties.city LIKE $${queryParams.length}; `
+    allPropertiesQuery += `city LIKE $${queryParams.length} `;
   }
 
   if (options.owner_id) {
@@ -179,6 +179,8 @@ const getAllProperties = function(options, limit = 10) {
   allPropertiesQuery += `
   ORDER BY cost_per_night
   LIMIT $${queryParams.length}`;
+
+  console.log(allPropertiesQuery, queryParams);
 
   return pool
     .query (allPropertiesQuery, queryParams)
