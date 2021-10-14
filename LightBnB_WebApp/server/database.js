@@ -109,12 +109,12 @@ const getAllReservations = function(guest_id, limit = 10) {
     LIMIT $2`;
   
   return pool
-    .query (getReservationsQuery, [guest_id], [limit])
+    .query (getReservationsQuery, [guest_id, limit])
     .then ((res) => {
       if (res.rows.length === 0) {
         return null;
       }
-      return res.rows[0];
+      return res.rows;
     })
     .catch((err) => {
       console.log('Error: ', err.message);
