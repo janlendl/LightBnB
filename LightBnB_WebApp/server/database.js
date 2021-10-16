@@ -247,8 +247,33 @@ exports.addReservation = addReservation;
 // gets upcoming reservations
 //
 const getUpcomingReservations = function(guest_id, limit = 10) {
+  const upcomingReservationsQuery = `
+    SELECT properties.*, reservations.*, avg(property_reviews.rating) as average_rating 
+    FROM reservations
+    JOIN properties ON reservations.property_id = properties.id
+    JOIN property_reviews ON properties.id = property_reviews.property_id 
+    WHERE reservations.guest_id = $1
+    AND reservations.start_date > now()::date
+    GROUP BY reservations.id, properties.id
+    ORDER BY reservations.start_date
+    LIMIT $2`;
+  
+  const queryParams = [guest_id, limit];
+
+  return pool
+    .query (upcomingReservationsQuery, queryParams)
+    .then ((res) => {
+      if (res.rows.length === 0) {
+        return null;
+      }
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log('Error: ', err.message);
+    });
 
 }
+exports.getUpcomingReservations = getUpcomingReservations;
 
 //
 // updates an existing reservation with new information
