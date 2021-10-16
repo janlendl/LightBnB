@@ -52,6 +52,13 @@ function getUpcomingReservations() {
   });
 }
 
+function getIndividualReservation(reservationId) {
+  let url = `/api/reservations/${reservationId}`;
+  return $.ajax({
+    url,
+  });
+}
+
 const submitProperty = function(data) {
   return $.ajax({
     method: "POST",
