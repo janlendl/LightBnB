@@ -65,6 +65,17 @@ module.exports = function(router, database) {
     }
   });
 
+  router.get('/reservations/:reservation_id', (req, res) => {
+    const reservationId = req.params.reservation_id;
+    database.getIndividualReservation(reservationId)
+      .then((reservation) => {
+        res.send(reservation);
+      })
+      .catch((err) => {
+        console.log('Error: ', err);
+        res.send(err);
+      });
+  });
 
   return router;
 }
