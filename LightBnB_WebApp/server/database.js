@@ -222,3 +222,21 @@ const addProperty = function(property) {
     });
 }
 exports.addProperty = addProperty;
+
+
+const addReservation = function(reservation) {
+  const addReservationQuery = ` INSERT INTO reservations (start_date, end_date, property_id, guest_id)
+    VALUES ($1, $2, $3, $4) RETURNING *`;
+
+  return pool.query(addReservationQuery, [reservation.start_date, reservation.end_date, reservation.property_id, reservation.guest_id])
+    .then ((res) => {
+      if (res.rows.length === 0) {
+        return null;
+      }
+      return res.rows[0];
+    })
+    .catch((err) => {
+      console.log('Error: ', err.message);
+    });
+}
+exports.addReservation = addReservation;
