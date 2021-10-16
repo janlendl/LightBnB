@@ -38,7 +38,7 @@ function getAllListings(params) {
   });
 }
 
-function getAllReservations() {
+function getFulfilledReservations() {
   let url = "/api/reservations";
   return $.ajax({
     url,

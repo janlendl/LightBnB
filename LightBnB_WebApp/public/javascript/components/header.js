@@ -47,13 +47,14 @@ $(() => {
 
   $("header").on("click", '.my_reservations_button', function() {
     propertyListings.clearListings();
-    getAllReservations()
+    getFulfilledReservations()
       .then(function(json) {
-        propertyListings.addProperties(json.reservations, true);
+        propertyListings.addProperties(json.reservations, true, { upcoming: false });
         views_manager.show('listings');
       })
       .catch(error => console.error(error));
   });
+
   $("header").on("click", '.my_listing_button', function() {
     propertyListings.clearListings();
     getAllListings(`owner_id=${currentUser.id}`)
