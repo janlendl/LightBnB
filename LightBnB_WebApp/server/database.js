@@ -288,3 +288,20 @@ const updateReservation = function(reservationId, newReservationData) {
 const deleteReservation = function(reservationId) {
 
 }
+
+const getIndividualReservation = function(reservationId) {
+  const individualReservationQuery = `SELECT * FROM reservations WHERE reservations.id = $1`;
+
+  return pool
+    .query (individualReservationQuery, [reservationId])
+    .then ((res) => {
+      if (res.rows.length === 0) {
+        return null;
+      }
+      return res.rows[0];
+    })
+    .catch((err) => {
+      console.log('Error: ', err.message);
+    });
+}
+exports.getIndividualReservation = getIndividualReservation;
