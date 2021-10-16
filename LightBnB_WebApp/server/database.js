@@ -99,17 +99,19 @@ exports.addUser = addUser;
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function(guest_id, limit = 10) {
-  const getReservationsQuery = `
-    SELECT properties.*, reservations.* 
-    FROM properties 
-    JOIN reservations ON properties.id = property_id
+  const allReservationsQuery = `
+    SELECT properties.*, reservations.*, avg(property_reviews.rating) as average_rating 
+    FROM reservations
+    JOIN properties ON reservations.property_id = properties.id
+    JOIN property_reviews ON properties.id = property_reviews.property_id 
     WHERE reservations.guest_id = $1
+    AND reservations.start_date > now()::date
     GROUP BY reservations.id, properties.id
     ORDER BY reservations.start_date
     LIMIT $2`;
   
   return pool
-    .query (getReservationsQuery, [guest_id, limit])
+    .query (allReservationsQuery, [guest_id, limit])
     .then ((res) => {
       if (res.rows.length === 0) {
         return null;
@@ -119,7 +121,7 @@ const getAllReservations = function(guest_id, limit = 10) {
     .catch((err) => {
       console.log('Error: ', err.message);
     });
-  // return getAllProperties(null, 2);
+
 }
 exports.getAllReservations = getAllReservations;
 
@@ -240,3 +242,24 @@ const addReservation = function(reservation) {
     });
 }
 exports.addReservation = addReservation;
+
+//
+// gets upcoming reservations
+//
+const getUpcomingReservations = function(guest_id, limit = 10) {
+
+}
+
+//
+// updates an existing reservation with new information
+//
+const updateReservation = function(reservationId, newReservationData) {
+
+}
+
+//
+// deletes an existing reservation
+//
+const deleteReservation = function(reservationId) {
+
+}
