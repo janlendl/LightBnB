@@ -210,12 +210,10 @@ $(() => {
     }
   
     if ((startDate || endDate) && !errorMessage) {
-      console.log('THIS :::', this);
-      const reservationId = $(this).find('#datatag-reservation-id').text();
+      const reservationId = $(this).find('#datatag-reservation-id').first().text();
       const dataObj = { start_date: startDate, end_date: endDate, reservation_id: reservationId };
       updateReservation(dataObj)
       .then(data => {
-          console.log('details:::', dataObj);
           console.log(`updated reservation: ${JSON.stringify(data)}`);
           views_manager.show('none');
           $propertyListings.empty();
@@ -230,7 +228,7 @@ $(() => {
             });
         })
         .catch((err) => {
-          console.error(err);
+          console.error(err.message);
           views_manager.show('listings');
         });
     } else {
