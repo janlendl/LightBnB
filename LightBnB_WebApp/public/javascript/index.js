@@ -9,6 +9,7 @@ $(() => {
     });
     $('.review_details').on('click', function() {
       const idData = $(this).attr('id').substring(15);
+      getReviewsByProperty(idData).then(data => console.log(data));
       console.log(idData);  
     });
   });
