@@ -33,16 +33,6 @@ const getUserWithEmail = function(email) {
     .catch ((err) => {
       console.log('Error: ', err.message);
     });
-  // let user;
-  // for (const userId in users) {
-  //   user = users[userId];
-  //   if (user.email.toLowerCase() === email.toLowerCase()) {
-  //     break;
-  //   } else {
-  //     user = null;
-  //   }
-  // }
-  // return Promise.resolve(user);
 }
 exports.getUserWithEmail = getUserWithEmail;
 
@@ -278,14 +268,46 @@ exports.getUpcomingReservations = getUpcomingReservations;
 //
 // updates an existing reservation with new information
 //
-const updateReservation = function(reservationId, newReservationData) {
+const updateReservation = function(reservationData) {
+  const updateReservationQuery = `
+    UPDATE reservations
+    SET`;
 
+  const queryParams = [];
+  if (reservationData.start_date) {
+    queryParams.push(reservationData.start_date);
+    updateReservationQuery += `start_date = $1`;
+    if (reservationData.end_date) {
+      queryParams.push(reservationData.end_date);
+      updateReservationQuery += `, end_date = $2`;
+    }
+  } else {
+    queryParams.push(reservationData.end_date);
+    updateReservationQuery += `end_date = $1`;
+  }
+  updateReservationQuery += ` WHERE id = $${queryParams.length + 1} RETURNING *;`
+  queryParams.push(reservationData.reservation_id);  
+    
+  return pool
+    .query (updateReservationQuery, queryParams)
+    .then ((res) => {
+      if (res.rows.length === 0) {
+        return null;
+      }
+      console.log(updateReservationQuery);
+      return res.rows[0];
+    })
+    .catch((err) => {
+      console.log('Error: ', err.message);
+    });
 }
+exports.updateReservation = updateReservation;
 
 //
 // deletes an existing reservation
 //
 const deleteReservation = function(reservationId) {
+
 
 }
 
