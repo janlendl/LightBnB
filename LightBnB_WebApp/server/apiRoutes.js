@@ -89,7 +89,7 @@ module.exports = function(router, database) {
   });
 
   router.delete(`/reservations/:reservation_id`, (req, res) => {
-    const reservationId = req.params.reservationId;
+    const reservationId = req.params.reservation_id;
     database.deleteReservation(reservationId);
   });
 
