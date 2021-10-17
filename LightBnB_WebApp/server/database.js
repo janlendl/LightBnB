@@ -24,7 +24,6 @@ const getUserWithEmail = function(email) {
     .query (getUserEmailQuery, [email])
     .then ((res) => {
       if (res.rows.length === 0) {
-        console.log('null');
         return null;
       }
       console.log(res.rows[0]);
@@ -269,7 +268,7 @@ exports.getUpcomingReservations = getUpcomingReservations;
 // updates an existing reservation with new information
 //
 const updateReservation = function(reservationData) {
-  const updateReservationQuery = `
+  let updateReservationQuery = `
     UPDATE reservations
     SET`;
 
@@ -294,7 +293,6 @@ const updateReservation = function(reservationData) {
       if (res.rows.length === 0) {
         return null;
       }
-      console.log(updateReservationQuery);
       return res.rows[0];
     })
     .catch((err) => {
@@ -317,9 +315,11 @@ const getIndividualReservation = function(reservationId) {
   return pool
     .query (individualReservationQuery, [reservationId])
     .then ((res) => {
-      if (res.rows.length === 0) {
-        return null;
-      }
+      // if (res.rows.length === 0) {
+      //   return null;
+      // }
+      console.log('getIndividual', res.rows[0]);
+      console.log('LENGTH::: ', res.rows.length);
       return res.rows[0];
     })
     .catch((err) => {
