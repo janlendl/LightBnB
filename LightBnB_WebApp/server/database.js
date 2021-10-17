@@ -333,3 +333,28 @@ const getIndividualReservation = function(reservationId) {
     });
 }
 exports.getIndividualReservation = getIndividualReservation;
+
+//
+// get reviews by property
+//
+const getReviewsByProperty = function(propertyId) {
+  const queryString = `
+    SELECT property_reviews.id, property_reviews.rating AS review_rating, property_reviews.message AS review_text, 
+    users.name, properties.title AS property_title, reservations.start_date, reservations.end_date
+    FROM property_reviews
+    JOIN reservations ON reservations.id = property_reviews.reservation_id  
+    JOIN properties ON properties.id = property_reviews.property_id
+    WHERE properties.id = $1
+    ORDER BY reservations.start_date ASC;
+  `
+  const queryParams = [propertyId];
+  return pool
+    .query(queryString, queryParams)
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log('Error: ', err.message);
+    });
+}
+exports.getReviewsByProperty = getReviewsByProperty;
