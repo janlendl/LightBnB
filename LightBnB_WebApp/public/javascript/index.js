@@ -6,7 +6,10 @@ $(() => {
     $('body').on('click', '.reserve-button', function() {
       const idData = $(this).attr('id').substring(17);
       views_manager.show('newReservation', idData);
-      console.log(idData);
+    });
+    $('.review_details').on('click', function() {
+      const idData = $(this).attr('id').substring(15);
+      console.log(idData);  
     });
   });
 });
