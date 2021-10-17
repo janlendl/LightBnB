@@ -77,6 +77,18 @@ module.exports = function(router, database) {
       });
   });
 
+  router.post('/reservations/:reservation_id', (req, res) => {
+    const reservationId = req.params.reservationId;
+    database.updateReservation({...req.body, reservation_id: reservationId})
+      .then((reservation) => {
+        res.send(reservation);
+      })
+      .catch((err) => {
+        console.log('Error: ', err);
+        res.send(err);
+      });
+  });
+
   return router;
 }
 
