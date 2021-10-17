@@ -18,6 +18,7 @@ $(() => {
 
   function addReviews(reviews) {
     clearReviews();
+    $propertyReviews.append(`<h3>Reviews for ${reviews[0].property_title}</h3>`);
     const reviewHtml = reviews.map(review => {
       const { id, review_rating, review_text, name, start_date, end_date }  = review;
       return `
@@ -31,6 +32,12 @@ $(() => {
       </article>`
     }).join('');
     $propertyReviews.append(reviewHtml);
+    $propertyReviews.append(`<span class="property-reviews__return">Return to Listings</span>`);
+
+    $('.property-reviews__return').on('click', function() {
+      views_manager.show('none');
+      views_manager.show('listings');
+    });
   }
 
   window.propertyReviews.addReviews = addReviews;
