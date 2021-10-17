@@ -153,7 +153,7 @@ $(() => {
         <button>Update</button>
         <a id="reservation-form__cancel" href="#">Cancel</a>
       </div>
-      <div id="datatag" class="hidden"></div>
+      <div id="dataTag" class="hidden"></div>
     </form>
   `);
 
@@ -210,10 +210,12 @@ $(() => {
     }
   
     if ((startDate || endDate) && !errorMessage) {
-      const reservationId = $(this).find("#datatag-reservation-id").text();
+      console.log('THIS :::', this);
+      const reservationId = $(this).find('#datatag-reservation-id').text();
       const dataObj = { start_date: startDate, end_date: endDate, reservation_id: reservationId };
       updateReservation(dataObj)
-        .then(data => {
+      .then(data => {
+          console.log('details:::', dataObj);
           console.log(`updated reservation: ${JSON.stringify(data)}`);
           views_manager.show('none');
           $propertyListings.empty();
