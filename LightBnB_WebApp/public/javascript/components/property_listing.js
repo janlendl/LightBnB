@@ -24,11 +24,13 @@ $(() => {
             `<button id='update-property-${property.id}' class='update-button'>Update</button>
             <button id='delete-reservation-${property.id}' class='delete-button'>Delete</button>
             `: ``
+          }</div>
+          ${(isReservation && !isReservation.upcoming) ? 
+            `<button id="add-review-${property.id}">Add a Review</button>` : ``
           }
-          <span id="review-details-${property.id}" class="review_details">
-            Browse ${property.review_count} reviews
-          </span>
-          </div>
+          ${!isReservation ? `<span id="review-details-${property.id}" class="review_details">
+          Browse ${property.review_count} reviews
+            </span>` : ``}
           </footer>
         </section>
       </article>
