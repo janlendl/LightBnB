@@ -268,11 +268,9 @@ exports.getUpcomingReservations = getUpcomingReservations;
 // updates an existing reservation with new information
 //
 const updateReservation = function(reservationData) {
-  let updateReservationQuery = `
-    UPDATE reservations
-    SET`;
-
+  let updateReservationQuery = `UPDATE reservations SET `;
   const queryParams = [];
+
   if (reservationData.start_date) {
     queryParams.push(reservationData.start_date);
     updateReservationQuery += `start_date = $1`;
