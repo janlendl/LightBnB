@@ -24,7 +24,11 @@ $(() => {
             `<button id='update-property-${property.id}' class='update-button'>Update</button>
             <button id='delete-reservation-${property.id}' class='delete-button'>Delete</button>
             `: ``
-          }</div>
+          }
+          <span id="review-details-${property.id}" class="review_details">
+            Browse ${property.review_count} reviews
+          </span>
+          </div>
           </footer>
         </section>
       </article>
