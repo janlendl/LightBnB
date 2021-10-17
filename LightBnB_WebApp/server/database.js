@@ -304,8 +304,9 @@ exports.updateReservation = updateReservation;
 //
 const deleteReservation = function(reservationId) {
   const queryParams = [reservationId];
-  const deleteReservationQuery = `DELETE FROM reservations WhERE id = $1`;
+  const deleteReservationQuery = `DELETE FROM reservations WHERE id = $1`;
 
+  console.log('reservation id:', reservationId);
   return pool
     .query (deleteReservationQuery, queryParams)
     .then (() => {
@@ -323,11 +324,9 @@ const getIndividualReservation = function(reservationId) {
   return pool
     .query (individualReservationQuery, [reservationId])
     .then ((res) => {
-      // if (res.rows.length === 0) {
-      //   return null;
-      // }
-      console.log('getIndividual', res.rows[0]);
-      console.log('LENGTH::: ', res.rows.length);
+      if (res.rows.length === 0) {
+        return null;
+      }
       return res.rows[0];
     })
     .catch((err) => {
