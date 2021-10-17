@@ -125,7 +125,7 @@ exports.getFulfilledReservations = getFulfilledReservations;
 const getAllProperties = function(options, limit = 10) {
   const queryParams = [];
   let allPropertiesQuery = `
-    SELECT properties.*, avg(property_reviews.rating) as average_rating
+    SELECT properties.*, avg(property_reviews.rating) as average_rating, count(property_reviews.rating) as review_count
     FROM properties
     JOIN property_reviews ON properties.id = property_id `;
 
@@ -185,7 +185,6 @@ const getAllProperties = function(options, limit = 10) {
 };
 
 exports.getAllProperties = getAllProperties;
-
 
 /**
  * Add a property to the database
