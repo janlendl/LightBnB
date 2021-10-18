@@ -13,7 +13,7 @@ $(() => {
 
       <div class="login-form__field-wrapper">
           <button>Login</button>
-          <a id="login-form__cancel" href="#">Cancel</a>
+          <button id="login-form__cancel" href="#">Cancel</button>
       </div>
     </form>
   `);
