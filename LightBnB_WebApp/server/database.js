@@ -344,6 +344,7 @@ const getReviewsByProperty = function(propertyId) {
     FROM property_reviews
     JOIN reservations ON reservations.id = property_reviews.reservation_id  
     JOIN properties ON properties.id = property_reviews.property_id
+    JOIN users ON users.id = property_reviews.guest_id
     WHERE properties.id = $1
     ORDER BY reservations.start_date ASC;
   `
