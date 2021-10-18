@@ -13,8 +13,9 @@ $(() => {
     $signUpForm.detach();
     $newReservationForm.detach();
     $updateReservationForm.detach();
-    $('#reservation-details').detach()
-    $newReviewForm.detach()
+    $('#reservation-details').detach();
+    $('#property-reviews').detach();
+    $newReviewForm.detach();
 
     switch (item) {
       case 'listings':
