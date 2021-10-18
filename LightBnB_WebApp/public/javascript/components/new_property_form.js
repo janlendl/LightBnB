@@ -81,7 +81,7 @@ $(() => {
 
         <div class="new-property-form__field-wrapper">
             <button>Create</button>
-            <a id="property-form__cancel" href="#">Cancel</a>
+            <button id="property-form__cancel" href="#">Cancel</button>
         </div>
         
     </form>
