@@ -151,7 +151,7 @@ $(() => {
 
       <div class="update-reservation-form__field-wrapper">
         <button>Update</button>
-        <a id="reservation-form__cancel" href="#">Cancel</a>
+        <button id="reservation-form__cancel" href="#">Cancel</button>
       </div>
       <div id="dataTag" class="hidden"></div>
     </form>
