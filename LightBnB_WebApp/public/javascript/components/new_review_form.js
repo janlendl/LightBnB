@@ -12,8 +12,11 @@ $(() => {
         <option value='4'>4 stars</option>
         <option value='5'>5 stars</option>
       </select>
-      <div id='datatag' class='hidden'></div>
+      <div class="new-review-form__field-wrapper">
       <button type='submit'>Submit</button>
+      <button class="review-form__cancel" href="#">Cancel</button>
+      </div>
+      <div id='datatag' class='hidden'></div>
     </form>
   `);
 
@@ -41,7 +44,10 @@ $(() => {
     }
   });
 
-  window.$newReviewForm = $newReviewForm;
+  $('body').on('click', '.review-form__cancel', function() {
+    views_manager.show('listings');
+    return false;
+  });
+    
+    window.$newReviewForm = $newReviewForm;
 });
-
-
