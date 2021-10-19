@@ -12,5 +12,15 @@
   align-content: stretch;
   padding-inline-start: 10px;
   padding-inline-end: 10px;
+}
 
+.property-reviews__return {
+  font-weight: 700;
+  color: green;
+  transition: all 300ms ease-in-out;
+  cursor: pointer; 
+}
+
+.property-reviews__return:hover {
+  color: blue;
 }
