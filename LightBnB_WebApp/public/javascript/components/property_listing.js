@@ -15,7 +15,7 @@ $(() => {
             <li>parking_spaces: ${property.parking_spaces}</li>
           </ul>
           ${isReservation ? 
-            `<p>${moment(property.start_date).format('ll')} - ${moment(property.end_date).format('ll')}</p>` 
+            `<p>${moment(property.start_date).utc().format('ll')} - ${moment(property.end_date).utc().format('ll')}</p>` 
             : `<button id='reserve-property-${property.id}' class='reserve-button'>Reserve</button>`}
           <footer class="property-listing__footer">
             <div class="property-listing__price">$${property.cost_per_night/100.0}/night
