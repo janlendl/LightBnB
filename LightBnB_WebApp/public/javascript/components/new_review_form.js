@@ -1,6 +1,7 @@
 $(() => {
   const $newReviewForm = $(`
     <form class='new-review-form'>
+      <h3>Write New Review</h3>
       <textarea id='new-review-body' rows='4' cols='50'></textarea>
       <label for='new-review-rating'>Select a rating:</label>
       <select name='rating' id='new-review-rating'>
