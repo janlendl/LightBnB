@@ -1,10 +1,10 @@
-#Light BnB ERD
+# Light BnB ERD
 
 Below is what our database ERD will look like for Lighthouse BnB
 
 ![LightBnB ERD](LightBnB_WebApp/images/LightbnbERD.png)
 
-##Database folder structure
+## Database folder structure
 
 ```
 ├──LightBnB 
